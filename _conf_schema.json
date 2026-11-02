@@ -17,6 +17,12 @@
     "description": "默认 Grafana Org ID",
     "default": 1
   },
+  "render_timezone": {
+    "type": "string",
+    "description": "渲染时区",
+    "hint": "IANA 时区名称，例如 Asia/Shanghai；留空则使用 Grafana 默认时区。",
+    "default": "Asia/Shanghai"
+  },
   "request_timeout": {
     "type": "int",
     "description": "请求超时（秒）",

@@ -44,6 +44,7 @@ httpx>=0.27,<1
 | `grafana_base_url` | `http://grafana:3000` | 插件服务端访问 Grafana 的内部地址 |
 | `grafana_token` | 空 | Grafana Service Account Token |
 | `grafana_org_id` | `1` | 默认 Org ID |
+| `render_timezone` | `Asia/Shanghai` | 渲染时区；留空则使用 Grafana 默认时区 |
 | `request_timeout` | `10` | 单次请求超时（秒） |
 | `render_width` | `1000` | 默认图片宽度 |
 | `render_height` | `600` | 默认图片高度 |

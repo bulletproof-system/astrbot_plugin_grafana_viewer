@@ -201,6 +201,7 @@ class GrafanaViewerPlugin(Star):
             "Grafana 地址：已配置",
             f"Grafana 连接：{connection}",
             f"Grafana 认证：{'已配置' if config.has_token else '未配置'}",
+            f"渲染时区：{config.render_timezone or 'Grafana 默认'}",
             "图片渲染器：请使用 /grafana test 检查",
             f"已配置视图：{len(config.views)} 个",
             f"缓存条目：{coordinator.cache_size} 个",

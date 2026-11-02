@@ -340,6 +340,7 @@ Grafana 连接：正常
 | `grafana_base_url` | string | `http://grafana:3000` | 插件访问 Grafana 的内部地址 |
 | `grafana_token` | string | 空 | Service Account Token，建议设置 `secret: true` |
 | `grafana_org_id` | int | `1` | 默认 Grafana Org ID |
+| `render_timezone` | string | `Asia/Shanghai` | 渲染时区；留空则使用 Grafana 默认时区 |
 | `request_timeout` | int | `10` | 单次 Grafana 请求超时，单位秒 |
 | `render_width` | int | `1000` | 默认渲染宽度 |
 | `render_height` | int | `600` | 默认渲染高度 |
@@ -418,6 +419,7 @@ GET {grafana_base_url}/render/d-solo/{dashboard_uid}/{slug}
 | `width` | 图片宽度 |
 | `height` | 图片高度 |
 | `kiosk` | 隐藏 Grafana 导航和界面元素 |
+| `tz` | 渲染时区，例如 `Asia/Shanghai`；未配置时省略 |
 | `var-*` | 视图配置中的模板变量 |
 
 ### 9.2 认证

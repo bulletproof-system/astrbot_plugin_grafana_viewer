@@ -49,7 +49,11 @@ class GrafanaClient:
         return f"{config.grafana_base_url}/render/d-solo/{dashboard_uid}/{slug}"
 
     @staticmethod
-    def build_query_params(view: ViewConfig, range_value: str) -> list[tuple[str, str]]:
+    def build_query_params(
+        config: PluginConfig,
+        view: ViewConfig,
+        range_value: str,
+    ) -> list[tuple[str, str]]:
         normalized = normalize_range(range_value)
         params: list[tuple[str, str]] = [
             ("orgId", str(view.org_id)),
@@ -60,6 +64,8 @@ class GrafanaClient:
             ("height", str(view.height)),
             ("kiosk", ""),
         ]
+        if config.render_timezone:
+            params.append(("tz", config.render_timezone))
         params.extend((f"var-{key}", value) for key, value in view.variables)
         return params
 
@@ -86,7 +92,7 @@ class GrafanaClient:
             raise MissingTokenError("grafana_token is not configured")
 
         url = self.build_render_url(self._config, view)
-        params = self.build_query_params(view, range_value)
+        params = self.build_query_params(self._config, view, range_value)
         headers = self._auth_headers(accept="image/png,image/jpeg")
 
         try:

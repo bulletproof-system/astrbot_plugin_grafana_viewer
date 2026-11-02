@@ -164,6 +164,7 @@ def test_main_imports_and_lifecycle_with_astrbot_api(monkeypatch):
 
         status_result = await plugin._dispatch(FakeEvent("/grafana status", admin=True))
         assert "Grafana 连接：正常" in status_result[1]
+        assert "渲染时区：Asia/Shanghai" in status_result[1]
 
         test_result = await plugin._dispatch(FakeEvent("/grafana test cpu", admin=True))
         assert test_result[0] == "chain"

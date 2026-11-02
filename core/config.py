@@ -56,6 +56,7 @@ class PluginConfig:
     grafana_base_url: str
     grafana_token: str = field(repr=False)
     grafana_org_id: int
+    render_timezone: str
     request_timeout: int
     render_width: int
     render_height: int
@@ -212,6 +213,15 @@ def _allowed_groups(value: object) -> frozenset[str]:
     return frozenset(str(item).strip() for item in values if str(item).strip())
 
 
+def _timezone(value: object) -> str:
+    result = _string(value, "render_timezone", "Asia/Shanghai")
+    if not result:
+        return ""
+    if len(result) > 64 or any(char.isspace() for char in result):
+        raise ConfigurationError("render_timezone 必须是有效时区名称")
+    return result
+
+
 def _base_url(value: object) -> str:
     url = _string(value, "grafana_base_url", "http://grafana:3000")
     parsed = urlsplit(url)
@@ -322,6 +332,7 @@ def load_config(raw_config: object) -> ConfigLoadResult:
         minimum=1,
         maximum=2_147_483_647,
     )
+    render_timezone = _timezone(raw.get("render_timezone"))
     timeout = _int_value(
         raw.get("request_timeout"),
         "request_timeout",
@@ -397,6 +408,7 @@ def load_config(raw_config: object) -> ConfigLoadResult:
             grafana_base_url=base_url,
             grafana_token=token,
             grafana_org_id=org_id,
+            render_timezone=render_timezone,
             request_timeout=timeout,
             render_width=width,
             render_height=height,

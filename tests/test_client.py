@@ -20,6 +20,7 @@ def _client(handler, *, max_image_bytes=1024 * 1024):
     raw = {
         "grafana_base_url": "http://grafana:3000",
         "grafana_token": "secret-token",
+        "render_timezone": "Asia/Shanghai",
         "max_image_bytes": max_image_bytes,
         "views": [
             {
@@ -54,6 +55,7 @@ def test_render_url_and_query_encoding():
     assert "/render/d-solo/prod%20overview/overview%20page" in seen["url"]
     assert "panelId=4" in seen["url"]
     assert "from=now-6h" in seen["url"]
+    assert "tz=Asia%2FShanghai" in seen["url"]
     assert "var-instance=prod+1" in seen["url"]
     assert "var-job=api%26v1" in seen["url"]
 

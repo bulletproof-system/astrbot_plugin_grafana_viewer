@@ -24,6 +24,7 @@ def test_view_defaults_and_variable_parsing():
     loaded = load_config(_raw_config())
     view = loaded.config.views[0]
     assert loaded.config.grafana_base_url == "http://grafana:3000"
+    assert loaded.config.render_timezone == "Asia/Shanghai"
     assert view.slug == "prod-overview"
     assert view.org_id == 1
     assert view.default_range == "1h"
@@ -33,6 +34,12 @@ def test_view_defaults_and_variable_parsing():
     assert dict(view.variables) == {"instance": "prod-1", "job": "api"}
     assert "secret-token" not in view.cache_key("1h")
     assert "secret-token" not in repr(loaded.config)
+
+
+def test_render_timezone_can_fall_back_to_grafana_default():
+    raw = _raw_config()
+    raw["render_timezone"] = ""
+    assert load_config(raw).config.render_timezone == ""
 
 
 def test_view_override_zero_uses_global_values():
