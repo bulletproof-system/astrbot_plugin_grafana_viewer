@@ -1,6 +1,17 @@
-name: helloworld # 插件唯一识别名，以 astrbot_plugin_ 前缀开头
-display_name: helloworld # 用于展示的名字，可以是方便人类阅读的名字（需要版本 >= v4.5.0，低版本不会报错，请放心填写）
-desc: AstrBot 插件示例。 # 插件简短描述
-version: v1.3.0 # 插件版本号。格式：v1.1.1 或者 v1.1
-author: Soulter # 作者
-repo: https://github.com/Soulter/helloworld # 插件的仓库地址
+name: astrbot_plugin_grafana_viewer
+display_name: Grafana 面板助手
+short_desc: 在聊天中查看预配置的 Grafana 面板图片
+desc: |
+  通过预配置的 Grafana 视图，在聊天中渲染并发送 Dashboard Panel 图片。
+
+  支持视图白名单、时间范围限制、群访问控制、图片缓存、频率限制和管理员渲染测试。
+  Grafana Token 仅在服务端请求中使用，不会发送到聊天消息。
+version: 0.1.0
+author: bulletproof-system
+repo: https://github.com/bulletproof-system/astrbot_plugin_grafana_viewer
+astrbot_version: ">=4.10.4,<5"
+tags:
+  - grafana
+  - monitoring
+  - prometheus
+  - dashboard

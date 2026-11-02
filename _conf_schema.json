@@ -1,0 +1,146 @@
+{
+  "grafana_base_url": {
+    "type": "string",
+    "description": "Grafana 内部地址",
+    "hint": "插件服务端访问 Grafana 的地址，例如 http://grafana:3000。不会发送给聊天用户。",
+    "default": "http://grafana:3000"
+  },
+  "grafana_token": {
+    "type": "string",
+    "description": "Grafana Service Account Token",
+    "hint": "建议使用仅具备查看 Dashboard 权限的 Service Account Token。",
+    "default": "",
+    "secret": true
+  },
+  "grafana_org_id": {
+    "type": "int",
+    "description": "默认 Grafana Org ID",
+    "default": 1
+  },
+  "request_timeout": {
+    "type": "int",
+    "description": "请求超时（秒）",
+    "default": 10
+  },
+  "render_width": {
+    "type": "int",
+    "description": "默认图片宽度",
+    "default": 1000
+  },
+  "render_height": {
+    "type": "int",
+    "description": "默认图片高度",
+    "default": 600
+  },
+  "cache_seconds": {
+    "type": "int",
+    "description": "图片缓存时间（秒）",
+    "hint": "设置为 0 可关闭缓存。",
+    "default": 20
+  },
+  "cooldown_seconds": {
+    "type": "int",
+    "description": "群级渲染冷却时间（秒）",
+    "hint": "缓存命中不会触发冷却。",
+    "default": 15
+  },
+  "allowed_groups": {
+    "type": "list",
+    "description": "允许使用的群号",
+    "hint": "留空表示不限制；生产环境建议填写明确的群号。",
+    "default": [],
+    "items": {
+      "type": "string"
+    }
+  },
+  "max_image_bytes": {
+    "type": "int",
+    "description": "图片最大字节数",
+    "default": 8388608
+  },
+  "views": {
+    "type": "template_list",
+    "description": "Grafana 视图列表",
+    "hint": "视图别名是聊天命令中唯一可输入的标识。",
+    "default": [],
+    "templates": {
+      "grafana_view": {
+        "name": "Grafana 视图",
+        "hint": "配置一个 Dashboard Panel 作为聊天视图。",
+        "items": {
+          "name": {
+            "type": "string",
+            "description": "视图别名",
+            "hint": "例如 cpu、api、db。不能包含空白。",
+            "default": ""
+          },
+          "title": {
+            "type": "string",
+            "description": "展示名称",
+            "default": ""
+          },
+          "dashboard_uid": {
+            "type": "string",
+            "description": "Dashboard UID",
+            "default": ""
+          },
+          "panel_id": {
+            "type": "int",
+            "description": "Panel ID",
+            "default": 0
+          },
+          "slug": {
+            "type": "string",
+            "description": "Dashboard Slug",
+            "hint": "留空时使用 Dashboard UID。",
+            "default": ""
+          },
+          "org_id": {
+            "type": "int",
+            "description": "Org ID 覆盖",
+            "hint": "0 表示使用全局 Org ID。",
+            "default": 0
+          },
+          "default_range": {
+            "type": "string",
+            "description": "默认时间范围",
+            "hint": "可选：15m、1h、6h、24h、7d、30d。",
+            "default": "1h"
+          },
+          "allowed_ranges": {
+            "type": "list",
+            "description": "允许的时间范围",
+            "default": [
+              "1h",
+              "6h",
+              "24h"
+            ],
+            "items": {
+              "type": "string"
+            }
+          },
+          "variables": {
+            "type": "text",
+            "description": "模板变量 JSON",
+            "hint": "例如 {\"instance\":\"prod-1\",\"job\":\"api\"}。变量只能由管理员配置。",
+            "default": "{}",
+            "editor_mode": true,
+            "editor_language": "json"
+          },
+          "width": {
+            "type": "int",
+            "description": "图片宽度覆盖",
+            "hint": "0 表示使用全局宽度。",
+            "default": 0
+          },
+          "height": {
+            "type": "int",
+            "description": "图片高度覆盖",
+            "hint": "0 表示使用全局高度。",
+            "default": 0
+          }
+        }
+      }
+    }
+  }
+}
